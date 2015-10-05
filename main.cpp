@@ -90,38 +90,36 @@ void total(int a){ //One of the player lost
 
 int player_(int i){ //Player selection
     string choice;
-    int faulty;
 
-    cout << "Would you like to \"hit\" or \"stay\" ? ";
-    getline(cin, choice);
+    while (true){
+        cout << "Would you like to \"hit\" or \"stay\" ? ";
+        getline(cin, choice);
 
-    for (int i = 0; i < choice.length(); ++i){
+        for (unsigned int i = 0; i < choice.length(); ++i){
         choice[i] = tolower(choice[i]); //Making the input plain small letters
-    }
-
-    if (choice == "hit"){
-        player.cards[i] = draw();  //Draw
-        player.total += player.cards[i];  //Addition
-
-        cout << endl << "You drew a " << player.cards[i] << "." << endl;
-        cout << "Your total is " << player.total << "." << endl << endl;
-
-        if (player.total >= 21){ //If more than 21
-            return 0;
-        }else{
-            i++; //Add 1 to index
-            faulty = player_(i); //User choose again
         }
-    }else if (choice == "stay"){
-        cout << endl << "You chose to stay." << endl << endl;
-    }else{
-        cout << endl <<  "Invalid input. Please try again." << endl << endl;
-        player_(i); //Calling this function again
+
+        if (choice == "hit"){
+            player.cards[i] = draw();  //Draw
+            player.total += player.cards[i];  //Addition
+
+            cout << endl << "You drew a " << player.cards[i] << "." << endl;
+            cout << "Your total is " << player.total << "." << endl << endl;
+
+            if (player.total > 21){ //If more than 21
+                return 0;
+            }else{
+                i++; //Add 1 to index
+            }
+        }else if (choice == "stay"){
+            cout << endl << "You chose to stay." << endl << endl;
+            break;
+        }else{
+            cout << endl <<  "Invalid input. Please try again." << endl << endl;
+            player_(i); //Calling this function again
+        }
     }
 
-    if (faulty == 0){ //If the function called returns 0....
-        return 0;
-    }
     return 1;
 }
 
